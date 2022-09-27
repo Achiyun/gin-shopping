@@ -13,4 +13,5 @@ func main() {
 	eventserver.GinEngine = gin.Default()
 
 	eventserver.Init()
+
 }

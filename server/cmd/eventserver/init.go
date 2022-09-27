@@ -11,5 +11,5 @@ func Init() {
 	// 初始化路由
 	Router.Router(GinEngine)
 	// todo: 读取配置文件设置端口
-	GinEngine.Run(":8081")
+	GinEngine.Run(":8082")
 }
