@@ -1,0 +1,25 @@
+basePath: /
+host: "8082"
+info:
+  contact:
+    name: chenchiyu
+  description: 购物网站
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: gin-shopping
+  version: "1.0"
+paths:
+  /:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      security:
+      - ApiKeyAuth: []
+      summary: 登陆api
+      tags:
+      - LoginApi
+swagger: "2.0"

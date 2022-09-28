@@ -1,0 +1,39 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "购物网站",
+        "title": "gin-shopping",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "chenchiyu"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "8082",
+    "basePath": "/",
+    "paths": {
+        "/": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "LoginApi"
+                ],
+                "summary": "登陆api"
+            }
+        }
+    }
+}

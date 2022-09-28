@@ -3,6 +3,7 @@ package eventserver
 import (
 	Router "github.com/Achiyun/gin-shopping/server/cmd/eventserver/router"
 	"github.com/gin-gonic/gin"
+
 )
 
 var GinEngine *gin.Engine
