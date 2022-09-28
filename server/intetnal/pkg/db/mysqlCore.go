@@ -28,7 +28,6 @@ func init() {
 	password := config.Section("mysql").Key("password").String()
 	database := config.Section("mysql").Key("database").String()
 
-	// dsn := "root:123456@tcp(192.168.0.6:3306)/gin?charset=utf8mb4&parseTime=True&loc=Local"
 	dsn := fmt.Sprintf("%v:%v@tcp(%v:%v)/%v?charset=utf8mb4&parseTime=True&loc=Local", user, password, ip, port, database)
 	DB, err = gorm.Open(mysql.Open(dsn), &gorm.Config{
 		QueryFields: true, //打印sql

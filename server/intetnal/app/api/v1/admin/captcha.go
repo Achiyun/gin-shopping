@@ -2,8 +2,8 @@ package admin
 
 import (
 	"github.com/Achiyun/gin-shopping/server/intetnal/app/model/common/response"
-	systemRes "github.com/Achiyun/gin-shopping/server/intetnal/app/model/system/response"
-	"github.com/Achiyun/gin-shopping/server/intetnal/pkg/utils"
+	systemRes "github.com/Achiyun/gin-shopping/server/intetnal/app/model/admin/response"
+	"github.com/Achiyun/gin-shopping/server/pkg/utils"
 	"github.com/gin-gonic/gin"
 )
 
