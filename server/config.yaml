@@ -1,0 +1,27 @@
+# Global Configuration
+
+# jwt configuration
+jwt:
+  signing-key: chiyu
+  expires-time: 7d
+  buffer-time: 1d
+  issuer: chenchiyu
+
+# redis configuration
+redis:
+  db: 0
+  addr: 127.0.0.1:6379
+  password: ""
+
+# mysql connect configuration
+mysql:
+  path: "127.0.0.1"
+  port: "3306"
+  config: ""
+  db-name: "ginvue"
+  username: "ginvue"
+  password: "1225"
+  max-idle-conns: 10
+  max-open-conns: 100
+  log-mode: ""
+  log-zap: false

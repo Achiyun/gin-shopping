@@ -33,7 +33,7 @@ func (userService *UserService) Register(m models.Manager) (managerInter models.
 	}
 	// 否则 附加uuid 密码hash加密 注册
 	m.Password = utils.BcryptHash(m.Password)
-	m.UUID = uuid.NewV4()
+	m.UUID, _ = uuid.NewV4()
 	err = sql.DB.Create(&m).Error
 	return m, err
 }

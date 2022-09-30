@@ -36,7 +36,10 @@ func (b *UserApi) Login(c *gin.Context) {
 	}
 	response.FailWithMessage("验证码错误", c)
 }
+
+// TokenNext 登录以后签发jwt
 func (b *UserApi) TokenNext(c *gin.Context, user models.Manager) {
+
 }
 
 // 先做注册, 加入uuid, 用uuid生成jwt
