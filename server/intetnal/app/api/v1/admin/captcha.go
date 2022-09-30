@@ -7,9 +7,9 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type BaseApi struct{}
+type UserApi struct{}
 
-func (b *BaseApi) Captcha(c *gin.Context) {
+func (b *UserApi) Captcha(c *gin.Context) {
 	id, b64s, err := utils.MakeCaptcha()
 
 	if err != nil {

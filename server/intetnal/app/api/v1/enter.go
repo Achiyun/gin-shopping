@@ -1,9 +1,9 @@
-package service
+package v1
 
 import "github.com/Achiyun/gin-shopping/server/intetnal/app/api/v1/admin"
 
-type ServiceGroup struct {
-	AdminServiceGroup admin.ApiGroup
+type ApiGroup struct {
+	AdminApiGroup admin.ApiGroup
 }
 
-var ServiceGroupApp = new(ServiceGroup)
+var ApiGroupApp = new(ApiGroup)

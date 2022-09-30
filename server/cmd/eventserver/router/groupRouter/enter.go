@@ -1,8 +1,7 @@
 package grouprouter
 
 type RouterGroup struct {
-	BaseRouter
-	AdminRouters
+	UserRouters
 }
 
 var RouterGroupApp = new(RouterGroup)

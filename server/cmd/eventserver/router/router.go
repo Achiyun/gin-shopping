@@ -14,13 +14,11 @@ import (
 func Router(r *gin.Engine) {
 	fmt.Println("Initialization router")
 
-	AdminRouters := grouter.RouterGroupApp.AdminRouters
-	BaseRouter := grouter.RouterGroupApp.BaseRouter
+	UserRouters := grouter.RouterGroupApp.UserRouters
 
 	PublicGroup := r.Group("")
 
-	BaseRouter.InitBaseRouter(PublicGroup)
-	AdminRouters.InitAdminRouter(r)
+	UserRouters.InitUserRouter(PublicGroup)
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 

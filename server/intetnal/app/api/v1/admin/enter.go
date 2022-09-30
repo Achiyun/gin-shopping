@@ -5,7 +5,7 @@ import (
 )
 
 type ApiGroup struct {
-	BaseApi
+	UserApi
 }
 
 var (
