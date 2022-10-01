@@ -24,8 +24,7 @@ import (
 func main() {
 	fmt.Println("starting eventserver")
 	global.GVA_VP = core.Viper() // 初始化Viper
-	fmt.Printf("global.GVA_CONFIG.JWT.SigningKey: %v\n", global.GVA_CONFIG.JWT.SigningKey)
-
+	fmt.Printf("我是钥匙: %v\n", global.GVA_CONFIG.JWT.SigningKey)
 	eventserver.GinEngine = gin.Default()
 
 	eventserver.Init()
