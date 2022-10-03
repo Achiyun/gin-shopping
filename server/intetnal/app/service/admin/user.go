@@ -14,7 +14,7 @@ import (
 type UserService struct {
 }
 
-func (userService *UserService) Login(m *models.Manager) (managerInter *models.Manager, err error) {
+func (user *UserService) Login(m *models.Manager) (managerInter *models.Manager, err error) {
 
 	var manager models.Manager
 
@@ -26,7 +26,8 @@ func (userService *UserService) Login(m *models.Manager) (managerInter *models.M
 	}
 	return &manager, err
 }
-func (userService *UserService) Register(m models.Manager) (managerInter models.Manager, err error) {
+
+func (user *UserService) Register(m models.Manager) (managerInter models.Manager, err error) {
 	var manager models.Manager
 	if !errors.Is(global.GVA_DB.Where("username = ?", m.Username).First(&manager).Error, gorm.ErrRecordNotFound) { // 判断用户名是否注册
 		return managerInter, errors.New("用户名已注册")
@@ -37,7 +38,8 @@ func (userService *UserService) Register(m models.Manager) (managerInter models.
 	err = global.GVA_DB.Create(&m).Error
 	return m, err
 }
-func (userService *UserService) ManagerList() (managerInter []models.Manager, err error) {
+
+func (user *UserService) ManagerList() (managerInter []models.Manager, err error) {
 	var manager []models.Manager
 
 	global.GVA_DB.Find(&manager)

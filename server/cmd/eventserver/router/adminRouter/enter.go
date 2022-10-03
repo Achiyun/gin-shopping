@@ -5,6 +5,7 @@ import "github.com/gin-gonic/gin"
 type RouterGroup struct {
 	UserRouters
 	MainRouters
+	ManagerRouters
 }
 
 var (
@@ -19,6 +20,7 @@ func Init(r *gin.Engine) {
 	{
 		AdminGroupApp.InitUserRouter(PublicGroup)
 		AdminGroupApp.InitMainRouter(PublicGroup)
+		AdminGroupApp.InitManagerRouter(PublicGroup)
 	}
 
 }

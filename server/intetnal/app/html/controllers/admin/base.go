@@ -23,3 +23,10 @@ func (con BaseController) Error(c *gin.Context, message string, redirectUrl stri
 		"redirectUrl": redirectUrl,
 	})
 }
+func (con BaseController) ErrorPlus(c *gin.Context, err error, redirectUrl string) {
+
+	c.HTML(http.StatusOK, "admin/public/error.html", gin.H{
+		"message":     err,
+		"redirectUrl": redirectUrl,
+	})
+}
