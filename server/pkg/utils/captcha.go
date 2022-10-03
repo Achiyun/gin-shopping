@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"fmt"
 	"image/color"
 
 	"github.com/mojocn/base64Captcha"
@@ -39,7 +38,6 @@ func MakeCaptcha() (string, string, error) {
 
 // 验证验证码
 func VerifyCaptcha(id string, VerifyValue string) bool {
-	fmt.Println(id, VerifyValue)
 	if store.Verify(id, VerifyValue, true) {
 		return true
 	} else {

@@ -1,9 +1,8 @@
 package router
 
 import (
-	"fmt"
-
-	grouter "github.com/Achiyun/gin-shopping/server/cmd/eventserver/router/groupRouter"
+	"github.com/Achiyun/gin-shopping/server/cmd/eventserver/router/adminRouter"
+	"github.com/Achiyun/gin-shopping/server/cmd/eventserver/router/baseRouter"
 	_ "github.com/Achiyun/gin-shopping/server/docs"
 
 	"github.com/gin-gonic/gin"
@@ -12,14 +11,16 @@ import (
 )
 
 func Router(r *gin.Engine) {
-	fmt.Println("Initialization router")
 
-	UserRouters := grouter.RouterGroupApp.UserRouters
+	// AdminRouters := adminRouter.AdminGroupApp.UserRouters
+	BaseRouters := baseRouter.BaseGroupApp.BaseRouters
+	// ApiRouters := apiRouter.ApiGroupApp.V1Group.UserRouters
 
-	PublicGroup := r.Group("")
+	adminRouter.Init(r)
+	// AdminRouters.InitUserRouter(PublicGroup)
+	BaseRouters.InitBaseRouter(r.Group(""))
 
-	UserRouters.InitUserRouter(PublicGroup)
-
+	// ApiRouters.InitUserRouter(PublicGroup)
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 }

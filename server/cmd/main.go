@@ -4,9 +4,6 @@ import (
 	"fmt"
 
 	eventserver "github.com/Achiyun/gin-shopping/server/cmd/eventserver"
-	"github.com/Achiyun/gin-shopping/server/intetnal/app/global"
-	"github.com/Achiyun/gin-shopping/server/intetnal/pkg/core"
-	"github.com/gin-gonic/gin"
 )
 
 // @title gin-shopping
@@ -23,9 +20,6 @@ import (
 // @BasePath /
 func main() {
 	fmt.Println("starting eventserver")
-	global.GVA_VP = core.Viper() // 初始化Viper
-	fmt.Printf("我是钥匙: %v\n", global.GVA_CONFIG.JWT.SigningKey)
-	eventserver.GinEngine = gin.Default()
 
 	eventserver.Init()
 }

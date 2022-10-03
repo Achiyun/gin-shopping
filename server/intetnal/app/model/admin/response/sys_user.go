@@ -5,7 +5,8 @@ import (
 )
 
 type AdminUserResponse struct {
-	Manager models.Manager `json:"manager"`
+	Manager     models.Manager   `json:"manager"`
+	ManagerList []models.Manager `json:"managerList"`
 }
 
 type LoginResponse struct {

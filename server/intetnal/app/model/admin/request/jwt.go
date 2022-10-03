@@ -12,8 +12,8 @@ type CustomClaims struct {
 }
 
 type BaseClaims struct {
+	ID       int
 	UUID     uuid.UUID
-	ID       uint
 	Username string
 	// 角色id
 	RoleId uint
