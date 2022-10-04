@@ -9,7 +9,6 @@ import (
 type MainRouters struct{}
 
 func (s *UserRouters) InitMainRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
-	// mainRouter := Router.Group("admin")
 
 	mainRouter := adminRouter.Group("")
 	mainCon := con.ConGroupApp.AdminConGroup.MainController

@@ -4,6 +4,7 @@ var (
 	LoginVerify        = Rules{"CaptchaId": {NotEmpty()}, "VerifyValue": {NotEmpty()}, "Username": {NotEmpty()}, "Password": {NotEmpty()}}
 	RegisterVerify     = Rules{"Username": {NotEmpty()}, "Password": {NotEmpty()}}
 	ManagerDoAddVerify = Rules{"Username": {Ge("3")}, "Password": {Ge("6")}}
+	RoleDoAddVerify    = Rules{"Title": {NotEmpty()}}
 
 	IdVerify               = Rules{"ID": []string{NotEmpty()}}
 	ApiVerify              = Rules{"Path": {NotEmpty()}, "Description": {NotEmpty()}, "ApiGroup": {NotEmpty()}, "Method": {NotEmpty()}}

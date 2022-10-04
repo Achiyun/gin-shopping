@@ -12,7 +12,7 @@ import (
 // Author [piexlmax](https://github.com/piexlmax)
 // Author [SliverHorn](https://github.com/SliverHorn)
 func GormMysql() *gorm.DB {
-	// 读取.ini里面的数据库配置
+	
 	m := global.GVA_CONFIG.Mysql
 	if m.Dbname == "" {
 		return nil

@@ -2,7 +2,6 @@ package admin
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	models "github.com/Achiyun/gin-shopping/server/intetnal/app/model/admin"
@@ -29,7 +28,6 @@ func (con *UserController) DoLogin(c *gin.Context) {
 	var m request.Login
 
 	err := c.ShouldBind(&m)
-	fmt.Println(m)
 	if err != nil {
 		response.FailWithMessage(err.Error(), c)
 		return

@@ -2,7 +2,6 @@ package admin
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 
 	"github.com/Achiyun/gin-shopping/server/intetnal/app/global"
@@ -21,7 +20,6 @@ func (con MainController) Index(c *gin.Context) {
 	userinfo := session.Get("userinfo")
 	//类型断言 来判断 userinfo是不是一个string
 	userinfoStr, ok := userinfo.(string)
-	fmt.Printf("userinfoStr: %v\n", userinfoStr)
 	if ok {
 		//1、获取用户信息
 		var managerinfo models.Manager

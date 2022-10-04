@@ -20,7 +20,7 @@ func Router(r *gin.Engine) {
 	// AdminRouters.InitUserRouter(PublicGroup)
 	BaseRouters.InitBaseRouter(r.Group(""))
 
-	// ApiRouters.InitUserRouter(PublicGroup)
+	// ApiRouters.InitUserRouter(r.Group(""))
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
 }

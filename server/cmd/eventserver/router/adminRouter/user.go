@@ -16,7 +16,7 @@ func (s *UserRouters) InitUserRouter(Router *gin.RouterGroup) (R gin.IRoutes) {
 	{
 		userRouter.GET("login", userCon.Index)
 		userRouter.POST("doLogin", userCon.DoLogin)
-		
+
 	}
 	return userRouter
 }

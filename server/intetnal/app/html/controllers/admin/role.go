@@ -7,6 +7,8 @@ import (
 
 	"github.com/Achiyun/gin-shopping/server/intetnal/app/global"
 	models "github.com/Achiyun/gin-shopping/server/intetnal/app/model/admin"
+	"github.com/Achiyun/gin-shopping/server/intetnal/app/model/admin/request"
+	"github.com/Achiyun/gin-shopping/server/intetnal/app/model/common/response"
 	"github.com/Achiyun/gin-shopping/server/pkg/utils"
 
 	"github.com/gin-gonic/gin"
@@ -16,10 +18,13 @@ type RoleController struct {
 	BaseController
 }
 
-func (con RoleController) Index(c *gin.Context) {
+func (con RoleController) List(c *gin.Context) {
+
 	roleList := []models.Role{}
-	global.GVA_DB.Find(&roleList)
-	fmt.Println(roleList)
+	err := roleService.List(&roleList)
+	if err != nil {
+		con.ErrorPlus(c, err, "admin/")
+	}
 	c.HTML(http.StatusOK, "admin/role/index.html", gin.H{
 		"roleList": roleList,
 	})
@@ -30,84 +35,139 @@ func (con RoleController) Add(c *gin.Context) {
 }
 func (con RoleController) DoAdd(c *gin.Context) {
 
-	title := strings.Trim(c.PostForm("title"), " ")
-	description := strings.Trim(c.PostForm("description"), " ")
+	var m request.Role
 
-	if title == "" {
+	err := c.ShouldBind(&m)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+	// 先去除空格再校验
+	m.Title = strings.Trim(m.Title, " ")
+	m.Description = strings.Trim(m.Description, " ")
+
+	err = utils.Verify(m, utils.RoleDoAddVerify)
+	if err != nil {
 		con.Error(c, "角色的标题不能为空", "/admin/role/add")
 		return
 	}
-	role := models.Role{}
-	role.Title = title
-	role.Description = description
-	role.Status = 1
-	role.AddTime = int(utils.GetUnix())
 
-	err := global.GVA_DB.Create(&role).Error
+	role := models.Role{
+		Title:       m.Title,
+		Description: m.Description,
+		Status:      1,
+		AddTime:     int(utils.GetUnix()),
+	}
+
+	err = roleService.Create(&role)
 	if err != nil {
 		con.Error(c, "增加角色失败 请重试", "/admin/role/add")
-	} else {
-		con.Success(c, "增加角色成功", "/admin/role")
+		return
 	}
+	con.Success(c, "增加角色成功", "/admin/role")
 
 }
 func (con RoleController) Edit(c *gin.Context) {
 
-	id, err := utils.Int(c.Query("id"))
+	var m request.Role
+
+	err := c.ShouldBind(&m)
+	if err != nil {
+		response.FailWithMessage(err.Error(), c)
+		return
+	}
+
+	id, err := utils.Int(m.Id)
 	if err != nil {
 		con.Error(c, "传入数据错误", "/admin/role")
-	} else {
-		role := models.Role{Id: id}
-		global.GVA_DB.Find(&role)
-		c.HTML(http.StatusOK, "admin/role/edit.html", gin.H{
-			"role": role,
-		})
+		return
 	}
+
+	role := models.Role{Id: id}
+	err = roleService.Edit(&role)
+	if err != nil {
+		con.Error(c, "查找数据错误", "/admin/role")
+		return
+	}
+	c.HTML(http.StatusOK, "admin/role/edit.html", gin.H{
+		"role": role,
+	})
 
 }
 func (con RoleController) DoEdit(c *gin.Context) {
 
-	id, err1 := utils.Int(c.PostForm("id"))
-	if err1 != nil {
+	var m request.Role
+
+	err := c.ShouldBind(&m)
+	if err != nil {
 		con.Error(c, "传入数据错误", "/admin/role")
 		return
 	}
-	title := strings.Trim(c.PostForm("title"), " ")
-	description := strings.Trim(c.PostForm("description"), " ")
+	// 格式化数据
+	m.Title = strings.Trim(m.Title, " ")
+	m.Description = strings.Trim(m.Description, " ")
 
-	if title == "" {
-		con.Error(c, "角色的标题不能为空", "/admin/role/edit")
+	err = utils.Verify(m, utils.RoleDoAddVerify)
+	if err != nil {
+		con.Error(c, "角色的标题不能为空", "/admin/role/add")
+		return
+	}
+
+	id, err := utils.Int(c.PostForm("id"))
+	if err != nil {
+		con.Error(c, "int转string错误", "/admin/role")
+		return
+	}
+
+	role := models.Role{
+		Id:          id,
+		Title:       m.Title,
+		Description: m.Description,
+	}
+
+	err = global.GVA_DB.Save(&role).Error
+	if err != nil {
+		con.Error(c, "修改数据失败", "/admin/role/edit?id="+utils.String(id))
+		return
+	}
+	con.Success(c, "修改数据成功", "/admin/role/edit?id="+utils.String(id))
+
+}
+func (con RoleController) Delete(c *gin.Context) {
+	var m request.Role
+	err := c.ShouldBind(&m)
+
+	if err != nil {
+		con.Error(c, "传入数据错误", "/admin/role")
+		return
+	}
+
+	id, err := utils.Int(m.Id)
+	if err != nil {
+		con.Error(c, "传入数据错误", "/admin/role")
+		return
 	}
 
 	role := models.Role{Id: id}
-	global.GVA_DB.Find(&role)
-	role.Title = title
-	role.Description = description
+	err = roleService.Delete(&role)
 
-	err2 := global.GVA_DB.Save(&role).Error
-	if err2 != nil {
-		con.Error(c, "修改数据失败", "/admin/role/edit?id="+utils.String(id))
-	} else {
-		con.Success(c, "修改数据成功", "/admin/role/edit?id="+utils.String(id))
-	}
-
-	//查询要修改的数据 然后 修改
-
-	// c.String(http.StatusOK, "-执行修改")
-}
-func (con RoleController) Delete(c *gin.Context) {
-	id, err := utils.Int(c.Query("id"))
 	if err != nil {
-		con.Error(c, "传入数据错误", "/admin/role")
-	} else {
-		role := models.Role{Id: id}
-		global.GVA_DB.Delete(&role)
-		con.Success(c, "删除数据成功", "/admin/role")
+		con.Error(c, "删除数据失败", "/admin/role")
+		return
 	}
+	con.Success(c, "删除数据成功", "/admin/role")
 }
 
 func (con RoleController) Auth(c *gin.Context) {
 	//1、获取角色id
+	var m request.Role
+	err := c.ShouldBind(&m)
+
+	if err != nil {
+		con.Error(c, "传入数据错误", "/admin/role")
+		return
+	}
+
 	roleId, err := utils.Int(c.Query("id"))
 	if err != nil {
 		con.Error(c, "传入数据错误", "/admin/role")
@@ -115,6 +175,8 @@ func (con RoleController) Auth(c *gin.Context) {
 	}
 	//2、获取所有的权限
 	accessList := []models.Access{}
+
+	
 	global.GVA_DB.Where("module_id=?", 0).Preload("AccessItem").Find(&accessList)
 
 	//3、获取当前角色拥有的权限 ，并把权限id放在一个map对象里面
